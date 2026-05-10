@@ -1,35 +1,47 @@
 name: CI-CD pipeline
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
-    CI-JOBS:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkouts code on github hosted runner
-              uses: actions/checkout@v4
-            - name: vertify files
-              run: |
-                echo " Files in the repository: "
-                ls
-                
-            - name: validate index file presence
-              run: |
-                if [ -f index.html ]; then
-                echo "index.html file is present."
-                else
-                echo "index. html file is missing!"
-                exit 1
-                fi
+  CI-JOBS:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkouts code on github hosted runner
+        uses: actions/checkout@v4
+      - name: vertify files
+        run: |
+          echo " Files in the repository: "
+          ls
 
-            - name: artifact upload
-              uses: actions/upload-artifact@v4
-              with:
-                name: index-file
-                path: index.html
+      - name: validate index file presence
+        run: |
+          if [ -f index.html ]; then
+          echo "index.html file is present."
+          else
+          echo "index. html file is missing!"
+          exit 1
+          fi
 
+      - name: artifact upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: index-file
+          path: index.html
+  deployment:
+    needs: CI-JOBS
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: index-file
 
-
-
-            
+      - name: configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.Access_key_ID }}
+          aws-secret-access-key: ${{ secrets.Secret_access_key }}
+          aws-region: ${{ secrets.region }}
+      - name: Deploy to S3
+        run: aws s3 sync . s3://bucket-utki812
