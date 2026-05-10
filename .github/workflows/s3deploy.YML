@@ -20,7 +20,7 @@ jobs:
               if [ -f index.html ]; then
                 echo "index.html file is present."
               else
-                echo "index.html file is missing!"
+                echo "index. html file is missing!"
                 exit 1
               fi
 
