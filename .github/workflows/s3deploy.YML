@@ -1,7 +1,7 @@
 name: CI-CD pipeline
 on:
   push:
-    branches: [ "main" ]
+    branches: [  "main"  ]
 
 jobs:
     CI-JOBS:
@@ -15,8 +15,8 @@ jobs:
               ls
               echo "Contents of the .github/workflows directory:"
 
-            -name: validate index file presence
-             run: |
+            - name: validate index file presence
+              run: |
               if [ -f index.html ]; then
                 echo "index.html file is present."
               else
@@ -24,11 +24,11 @@ jobs:
                 exit 1
               fi
 
-            -name: artifact upload
-             uses: actions/upload-artifact@v3
-             with:
-               name: website-files
-               path: index.html
+            - name: artifact upload
+              uses: actions/upload-artifact@v3
+              with:
+              name: website-files
+              path: index.html
 
 
 
