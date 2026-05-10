@@ -11,24 +11,23 @@ jobs:
               uses: actions/checkout@v4
             - name: vertify files
               run: |
-              echo "Files in the repository:"
-              ls
-              echo "Contents of the .github/workflows directory:"
-
-            -name: validate index file presence
-             run: |
-              if [ -f index.html ]; then
+                echo " Files in the repository: "
+                ls
+                
+            - name: validate index file presence
+              run: |
+                if [ -f index.html ]; then
                 echo "index.html file is present."
-              else
+                else
                 echo "index. html file is missing!"
                 exit 1
-              fi
+                fi
 
-            -name: artifact upload
-             uses: actions/upload-artifact@v3
-             with:
-              name: index-file
-              path: index.html
+            - name: artifact upload
+              uses: actions/upload-artifact@v3
+              with:
+                name: index-file
+                path: index.html
 
 
 
