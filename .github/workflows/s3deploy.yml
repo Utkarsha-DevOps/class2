@@ -24,7 +24,7 @@ jobs:
                 fi
 
             - name: artifact upload
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                 name: index-file
                 path: index.html
