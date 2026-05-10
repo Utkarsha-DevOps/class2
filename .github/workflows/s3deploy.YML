@@ -13,7 +13,7 @@ jobs:
               run: |
               echo "Files in the repository:"
               ls
-                echo "Contents of the .github/workflows directory:"
+              echo "Contents of the .github/workflows directory:"
 
             -name: validate index file presence
              run: |
