@@ -7,7 +7,7 @@ jobs:
     CI-JOBS:
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout code on github hosted runner
+            - name: Checkouts code on github hosted runner
               uses: actions/checkout@v4
             - name: vertify files
               run: |
